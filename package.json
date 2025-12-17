@@ -11,7 +11,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "vite build"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
