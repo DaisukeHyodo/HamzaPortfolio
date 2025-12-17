@@ -119,7 +119,7 @@ export default function App() {
               Formations
             </h4>
             <ul className="space-y-2">
-              <li>2024 - 2025 : BTS SIO SLAM</li>
+              <li>2024 - 2026 : BTS SIO SLAM</li>
               <li>2023 - 2024 : Game design & Programming</li>
               <li>
                 2020 - 2023 : BAC Général Spécialités Mathématiques, Numérique
@@ -136,7 +136,17 @@ export default function App() {
           Mes compétences
         </h3>
         <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6">
-          {["HTML/CSS", "JavaScript", "C#", "PHP", "Python"].map((skill, i) => (
+          {[
+            "HTML/CSS",
+            "JavaScript",
+            "C#",
+            "PHP",
+            "Python",
+            "Git",
+            "UX",
+            "UI",
+            "React",
+          ].map((skill, i) => (
             <span
               key={i}
               className="block bg-purple-100 text-purple-800 font-semibold px-4 py-2 rounded-full text-center hover:bg-purple-200 transition"
