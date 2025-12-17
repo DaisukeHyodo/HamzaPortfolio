@@ -9,7 +9,8 @@ export default function App() {
     { name: "Gestion Vehicules", image: viteLogo },
     { name: "ERP", image: reactLogo },
     { name: "CastleTown Web", image: viteLogo },
-    { name: "Ce meme portfolio", image: reactLogo },
+    { name: "Projet Formulaire", image: viteLogo },
+    { name: "Ce portfolio", image: reactLogo },
   ];
   return (
     <div className="font-sans bg-gradient-to-br from-pink-50 via-purple-100 to-white text-purple-900">
@@ -106,7 +107,7 @@ export default function App() {
         className="py-20 px-6 md:px-20 bg-purple-100/70 backdrop-blur-md"
       >
         <h3 className="text-3xl font-bold text-purple-700 mb-12 text-center">
-          Mes parcours 🎯
+          Mon parcours 🎯
         </h3>
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
           {/* Expériences */}
@@ -123,7 +124,7 @@ export default function App() {
           {/* Formations */}
           <div className="bg-white p-6 rounded-xl shadow hover:shadow-xl transition">
             <h4 className="text-2xl font-semibold mb-4 text-pink-600">
-              Formations
+              Mes formations
             </h4>
             <ul className="space-y-2">
               <li>2024 - 2026 : BTS SIO SLAM</li>
@@ -140,7 +141,7 @@ export default function App() {
       {/* COMPÉTENCES */}
       <section id="competences" className="py-20 px-6 md:px-20 bg-white/80">
         <h3 className="text-3xl font-bold text-purple-700 mb-8 text-center">
-          Mes compétences
+          Mes compétences techniques 💻
         </h3>
         <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6">
           {[
@@ -149,10 +150,15 @@ export default function App() {
             "C#",
             "PHP",
             "Python",
-            "Git",
-            "UX",
-            "UI",
+            "Git(lab/GitHub)",
+            "MySQL",
+            "Node.js",
+            "Bootstrap",
             "React",
+            "Ui/Ux",
+            "VSCode",
+            "Design responsive",
+            "Graphic design",
           ].map((skill, i) => (
             <span
               key={i}
@@ -167,7 +173,7 @@ export default function App() {
       {/* PROJETS */}
       <section id="projets" className="py-20 px-6 md:px-20 bg-purple-50">
         <h3 className="text-3xl font-bold text-purple-700 mb-8 text-center">
-          📂 Mes projets
+          Mes projets 📂
         </h3>
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
           {projects.map((proj, i) => (
