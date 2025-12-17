@@ -108,6 +108,7 @@ export default function App() {
               Expériences
             </h4>
             <ul className="space-y-2">
+              <li>Novembre 2025 : Stage KS Group</li>
               <li>Juin 2025 : Stage VectorSystem, (Paris)</li>
               <li>Novembre 2019 : Stage BNP Arval (Paris)</li>
             </ul>
