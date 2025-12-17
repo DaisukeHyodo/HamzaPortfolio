@@ -1,7 +1,7 @@
 {
   "name": "mon-projet-react",
   "private": true,
-  "homepage": "https://DaisukeHyodo.github.io/HamzaPortfolio"
+  "homepage": "https://DaisukeHyodo.github.io/HamzaPortfolio",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
