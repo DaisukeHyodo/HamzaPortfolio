@@ -60,13 +60,11 @@ export default function App() {
         className="py-20 px-6 md:px-20 bg-white/80 backdrop-blur-md"
       >
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
-          {
-            <div className="md:w-1/2 flex justify-center">
-              <div className="w-60 h-60 bg-purple-200 rounded-full flex items-center justify-center shadow-lg text-purple-700 font-bold text-xl">
-                Avatar
-              </div>
+          {/*<div className="md:w-1/2 flex justify-center">
+            <div className="w-60 h-60 bg-purple-200 rounded-full flex items-center justify-center shadow-lg text-purple-700 font-bold text-xl">
+              Avatar
             </div>
-          }
+          </div>*/}
           <div className="md:w-1/2 space-y-4">
             <h3 className="text-3xl font-bold text-purple-700">
               Présentation 👨🏻‍💻
