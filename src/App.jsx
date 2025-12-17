@@ -163,7 +163,13 @@ export default function App() {
           📂 Mes projets
         </h3>
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
-          {["ZOO"].map((proj, i) => (
+          {[
+            "ZOO",
+            "Gestion Vehicules",
+            "ERP",
+            "CastleTown Web",
+            "Ce meme portfolio",
+          ].map((proj, i) => (
             <div
               key={i}
               className="bg-white p-6 rounded-xl shadow hover:shadow-xl transition flex flex-col items-center justify-center text-center"
