@@ -4,6 +4,13 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 
 export default function App() {
+  const projects = [
+    { name: "ZOO", image: reactLogo },
+    { name: "Gestion Vehicules", image: viteLogo },
+    { name: "ERP", image: reactLogo },
+    { name: "CastleTown Web", image: viteLogo },
+    { name: "Ce meme portfolio", image: reactLogo },
+  ];
   return (
     <div className="font-sans bg-gradient-to-br from-pink-50 via-purple-100 to-white text-purple-900">
       {/* HEADER */}
@@ -163,21 +170,19 @@ export default function App() {
           📂 Mes projets
         </h3>
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
-          {[
-            "ZOO",
-            "Gestion Vehicules",
-            "ERP",
-            "CastleTown Web",
-            "Ce meme portfolio",
-          ].map((proj, i) => (
+          {projects.map((proj, i) => (
             <div
               key={i}
               className="bg-white p-6 rounded-xl shadow hover:shadow-xl transition flex flex-col items-center justify-center text-center"
             >
-              <div className="h-24 w-24 bg-purple-200 rounded-full flex items-center justify-center text-purple-700 font-bold text-lg mb-4">
-                {proj[0]}
+              <div className="w-full overflow-hidden rounded-md mb-4">
+                <img
+                  src={proj.image}
+                  alt={proj.name}
+                  className="w-full h-40 object-cover transform transition-transform duration-300 hover:scale-110"
+                />
               </div>
-              <h4 className="font-bold text-lg text-purple-800">{proj}</h4>
+              <h4 className="font-bold text-lg text-purple-800">{proj.name}</h4>
             </div>
           ))}
         </div>
