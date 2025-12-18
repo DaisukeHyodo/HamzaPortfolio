@@ -1,10 +1,10 @@
 import { useState } from "react";
-import erpScreen from "./assets/erp.png";
-import castletownScreen from "./assets/castle town.webp";
-import formulaireScreen from "./assets/formulaire.png";
-import gestionVehiculeScreen from "./assets/gestion_vehicule.png";
-import portfolioScreen from "./assets/portfolio_cover.png";
-import zooScreen from "./assets/zoo.png";
+import erpScreen from "./assets/projects/erp.png";
+import castletownScreen from "./assets/projects/castle town.webp";
+import formulaireScreen from "./assets/projects/formulaire.png";
+import gestionVehiculeScreen from "./assets/projects/gestion_vehicule.png";
+import portfolioScreen from "./assets/projects/portfolio_cover.png";
+import zooScreen from "./assets/projects/zoo.png";
 import "./App.css";
 
 export default function App() {
