@@ -3,7 +3,7 @@ import erpScreen from "./assets/erp.png";
 import castletownScreen from "./assets/castle town.webp";
 import formulaireScreen from "./assets/formulaire.png";
 import gestionVehiculeScreen from "./assets/gestion_vehicule.png";
-import portfolioScreen from "./assets/portfolio_cover.png";
+import portfolioScreen from "./assets/portfolio_screen.png";
 import zooScreen from "./assets/zoo.png";
 import "./App.css";
 
