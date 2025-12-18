@@ -5,7 +5,6 @@ import formulaireScreen from "./assets/formulaire.png";
 import gestionVehiculeScreen from "./assets/gestion_vehicule.png";
 import portfolioScreen from "./assets/portfolio_cover.png";
 import zooScreen from "./assets/zoo.png";
-import viteLogo from "/vite.svg";
 import "./App.css";
 
 export default function App() {
