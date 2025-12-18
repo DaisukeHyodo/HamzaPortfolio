@@ -1,16 +1,21 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+import erpScreen from "./assets/erp.png";
+import castletownScreen from "./assets/castle town.webp";
+import formulaireScreen from "./assets/formulaire.png";
+import gestionVehiculeScreen from "./assets/gestion vehicule.png";
+import portfolioScreen from "./assets/portfolio_cover.png";
+import zooScreen from "./assets/zoo.png";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
 export default function App() {
   const projects = [
-    { name: "ZOO", image: reactLogo },
-    { name: "Gestion Vehicules", image: viteLogo },
-    { name: "ERP", image: reactLogo },
-    { name: "CastleTown Web", image: viteLogo },
-    { name: "Projet Formulaire", image: viteLogo },
-    { name: "Ce portfolio", image: reactLogo },
+    { name: "ZOO", image: zooScreen },
+    { name: "Gestion Vehicules", image: gestionVehiculeScreen },
+    { name: "ERP", image: erpScreen },
+    { name: "CastleTown Web", image: castletownScreen },
+    { name: "Projet Formulaire", image: formulaireScreen },
+    { name: "Ce portfolio", image: portfolioScreen },
   ];
   return (
     <div className="font-sans bg-gradient-to-br from-pink-50 via-purple-100 to-white text-purple-900">
@@ -199,7 +204,9 @@ export default function App() {
         id="contact"
         className="py-12 px-6 md:px-20 bg-white/90 text-center text-purple-700 backdrop-blur-md"
       >
-        <h4 className="text-xl font-bold mb-4 text-purple-800">Me contacter</h4>
+        <h4 className="text-xl font-bold mb-4 text-purple-800">
+          Me contacter :
+        </h4>
         <div className="space-x-4 mb-4">
           <a
             href="https://github.com/DaisukeHyodo"
