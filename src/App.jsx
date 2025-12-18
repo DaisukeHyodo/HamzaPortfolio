@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import erpScreen from "./assets/erp.png";
 import castletownScreen from "./assets/castle town.webp";
 import formulaireScreen from "./assets/formulaire.png";
@@ -7,7 +7,105 @@ import portfolioScreen from "./assets/portfolio_screen.png";
 import zooScreen from "./assets/zoo.png";
 import "./App.css";
 
+function Veille({ feedUrl, maxItems = 6 }) {
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!feedUrl) return;
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
+    fetch(feedUrl)
+      .then((r) => r.text())
+      .then((str) => {
+        if (cancelled) return;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(str, "application/xml");
+        const items = Array.from(doc.querySelectorAll("item, entry")).slice(
+          0,
+          maxItems
+        );
+        const parsed = items.map((it) => {
+          const title =
+            it.querySelector("title")?.textContent || "(sans titre)";
+          const link =
+            it.querySelector("link")?.textContent ||
+            it.querySelector("link")?.getAttribute("href") ||
+            "#";
+          const pubDate =
+            it.querySelector("pubDate")?.textContent ||
+            it.querySelector("updated")?.textContent ||
+            "";
+          return { title, link, pubDate };
+        });
+        setArticles(parsed);
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        setError(err.message || "Erreur lors du chargement du flux");
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => (cancelled = true);
+  }, [feedUrl, maxItems]);
+
+  return (
+    <section id="veille" className="py-20 px-6 md:px-20 bg-purple-50">
+      <h3 className="text-3xl font-bold text-purple-700 mb-4 text-center">
+        Veille technologique 🔎
+      </h3>
+      <div className="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow">
+        {!feedUrl ? (
+          <p className="text-sm text-gray-600">Aucun lien de flux configuré.</p>
+        ) : loading ? (
+          <p className="text-sm text-gray-600">Chargement des articles...</p>
+        ) : error ? (
+          <p className="text-sm text-red-500">Erreur: {error}</p>
+        ) : articles.length === 0 ? (
+          <p className="text-sm text-gray-600">Aucun article trouvé.</p>
+        ) : (
+          <ul className="space-y-3">
+            {articles.map((a, i) => (
+              <li key={i} className="text-left">
+                <a
+                  href={a.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-purple-700 hover:text-pink-500"
+                >
+                  {a.title}
+                </a>
+                {a.pubDate && (
+                  <div className="text-xs text-gray-500">{a.pubDate}</div>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+        {feedUrl && (
+          <div className="mt-4 text-sm">
+            <a
+              href={feedUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-purple-600 hover:underline"
+            >
+              Ouvrir le flux Google Alerts
+            </a>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
 export default function App() {
+  // Remplacez cette URL par votre lien Google Alerts (RSS/Atom)
+  const GOOGLE_ALERTS_FEED =
+    "https://www.google.com/alerts/feeds/08534805619220300136/15343554374847867394"; // ex: "https://www.google.com/alerts/feeds/...."
   const projects = [
     { name: "ZOO", image: zooScreen },
     { name: "Gestion Vehicules", image: gestionVehiculeScreen },
@@ -173,6 +271,9 @@ export default function App() {
           ))}
         </div>
       </section>
+
+      {/* VEILLE TECHNOLOGIQUE */}
+      <Veille feedUrl={GOOGLE_ALERTS_FEED} />
 
       {/* PROJETS */}
       <section id="projets" className="py-20 px-6 md:px-20 bg-purple-50">
