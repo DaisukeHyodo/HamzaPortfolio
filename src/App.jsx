@@ -120,17 +120,140 @@ function Veille({ feedUrl, maxItems = 6 }) {
   );
 }
 
+// Modal Component
+function ProjectModal({ project, onClose }) {
+  if (!project) return null;
+
+  return (
+    <div
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header avec bouton de fermeture */}
+        <div className="relative">
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-red-600 transition z-10"
+          >
+            ✕
+          </button>
+          <img
+            src={project.image}
+            alt={project.name}
+            className="w-full h-64 object-cover"
+          />
+        </div>
+
+        {/* Contenu */}
+        <div className="p-6">
+          <h2 className="text-3xl font-bold text-purple-700 mb-2">
+            {project.name}
+          </h2>
+          <p className="text-sm text-gray-500 mb-4">Année : {project.date}</p>
+
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-lg font-semibold text-purple-600 mb-2">
+                Description
+              </h3>
+              <p className="text-gray-700">{project.description}</p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-purple-600 mb-2">
+                Détails
+              </h3>
+              <p className="text-gray-700">{project.details}</p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-purple-600 mb-2">
+                Technologies utilisées
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {project.technologies.map((tech, i) => (
+                  <span
+                    key={i}
+                    className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <button
+            onClick={onClose}
+            className="mt-6 w-full bg-purple-600 text-white font-bold py-2 rounded-lg hover:bg-purple-700 transition"
+          >
+            Fermer
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
+  const [selectedProject, setSelectedProject] = useState(null);
+
   // Remplacez cette URL par votre lien Google Alerts (RSS/Atom)
   const GOOGLE_ALERTS_FEED =
     "https://www.google.com/alerts/feeds/08534805619220300136/15343554374847867394"; // ex: "https://www.google.com/alerts/feeds/...."
   const projects = [
-    { name: "ZOO", image: zooScreen },
-    { name: "Gestion Vehicules", image: gestionVehiculeScreen },
-    { name: "ERP", image: erpScreen },
-    { name: "CastleTown Web", image: castletownScreen },
-    { name: "Projet Formulaire", image: formulaireScreen },
-    { name: "Ce portfolio", image: portfolioScreen },
+    {
+      name: "ZOO",
+      image: zooScreen,
+      description: "Une application de gestion de zoo avec interface intuitive.",
+      details: "Développé en HTML/CSS/JavaScript avec une base de données MySQL.",
+      technologies: ["HTML", "CSS", "JavaScript", "MySQL"],
+      date: "2024"
+    },
+    {
+      name: "Gestion Vehicules",
+      image: gestionVehiculeScreen,
+      description: "Système de gestion de flotte automobile.",
+      details: "Application développée en PHP avec une architecture MVC.",
+      technologies: ["PHP", "MySQL", "HTML/CSS"],
+      date: "2024"
+    },
+    {
+      name: "ERP",
+      image: erpScreen,
+      description: "Logiciel de planification des ressources d'entreprise.",
+      details: "ERP complet pour la gestion administrative d'une entreprise.",
+      technologies: ["PHP", "MySQL", "JavaScript"],
+      date: "2023"
+    },
+    {
+      name: "CastleTown Web",
+      image: castletownScreen,
+      description: "Site web pour le projet CastleTown.",
+      details: "Développé avec un design responsive et moderne.",
+      technologies: ["HTML", "CSS", "JavaScript"],
+      date: "2023"
+    },
+    {
+      name: "Projet Formulaire",
+      image: formulaireScreen,
+      description: "Formulaire interactif avec validation côté client.",
+      details: "Validation en temps réel avec UX optimisée.",
+      technologies: ["HTML", "CSS", "JavaScript"],
+      date: "2023"
+    },
+    {
+      name: "Ce portfolio",
+      image: portfolioScreen,
+      description: "Mon portfolio personnel showcasing mes projets.",
+      details: "Développé avec React et Tailwind CSS pour un design moderne.",
+      technologies: ["React", "Tailwind CSS", "Vite"],
+      date: "2025"
+    },
   ];
   return (
     <div className="font-sans bg-gradient-to-br from-pink-50 via-purple-100 to-white text-purple-900">
@@ -302,7 +425,8 @@ export default function App() {
           {projects.map((proj, i) => (
             <div
               key={i}
-              className="bg-white p-6 rounded-xl shadow hover:shadow-xl transition flex flex-col items-center justify-center text-center"
+              onClick={() => setSelectedProject(proj)}
+              className="bg-white p-6 rounded-xl shadow hover:shadow-xl transition flex flex-col items-center justify-center text-center cursor-pointer"
             >
               <div className="w-full overflow-hidden rounded-md mb-4">
                 <img
@@ -316,6 +440,9 @@ export default function App() {
           ))}
         </div>
       </section>
+
+      {/* MODAL PROJETS */}
+      <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
 
       {/* CONTACT / FOOTER */}
       <footer
