@@ -12,6 +12,13 @@ function Veille({ feedUrl, maxItems = 6 }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Helper function to decode HTML entities
+  const decodeHTMLEntities = (text) => {
+    const textarea = document.createElement("textarea");
+    textarea.innerHTML = text;
+    return textarea.value;
+  };
+
   useEffect(() => {
     if (!feedUrl) return;
     let cancelled = false;
@@ -30,16 +37,18 @@ function Veille({ feedUrl, maxItems = 6 }) {
           maxItems
         );
         const parsed = items.map((it) => {
-          const title =
+          const titleRaw =
             it.querySelector("title")?.textContent || "(sans titre)";
+          const title = decodeHTMLEntities(titleRaw);
           const link =
             it.querySelector("link")?.textContent ||
             it.querySelector("link")?.getAttribute("href") ||
             "#";
-          const pubDate =
+          const pubDateRaw =
             it.querySelector("pubDate")?.textContent ||
             it.querySelector("updated")?.textContent ||
             "";
+          const pubDate = decodeHTMLEntities(pubDateRaw);
           return { title, link, pubDate };
         });
         setArticles(parsed);
