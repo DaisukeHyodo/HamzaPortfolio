@@ -12,11 +12,18 @@ function Veille({ feedUrl, maxItems = 6 }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Helper function to decode HTML entities
+  // Helper function to decode HTML entities and strip HTML tags
   const decodeHTMLEntities = (text) => {
     const textarea = document.createElement("textarea");
     textarea.innerHTML = text;
     return textarea.value;
+  };
+
+  // Helper function to clean HTML content (remove tags and decode entities)
+  const cleanHTML = (html) => {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return decodeHTMLEntities(div.textContent || div.innerText || "");
   };
 
   useEffect(() => {
@@ -39,7 +46,7 @@ function Veille({ feedUrl, maxItems = 6 }) {
         const parsed = items.map((it) => {
           const titleRaw =
             it.querySelector("title")?.textContent || "(sans titre)";
-          const title = decodeHTMLEntities(titleRaw);
+          const title = cleanHTML(titleRaw);
           const link =
             it.querySelector("link")?.textContent ||
             it.querySelector("link")?.getAttribute("href") ||
@@ -48,7 +55,7 @@ function Veille({ feedUrl, maxItems = 6 }) {
             it.querySelector("pubDate")?.textContent ||
             it.querySelector("updated")?.textContent ||
             "";
-          const pubDate = decodeHTMLEntities(pubDateRaw);
+          const pubDate = cleanHTML(pubDateRaw);
           return { title, link, pubDate };
         });
         setArticles(parsed);
