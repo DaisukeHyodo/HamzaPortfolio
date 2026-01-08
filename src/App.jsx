@@ -220,7 +220,7 @@ export default function App() {
       image: gestionVehiculeScreen,
       description: "Système de gestion de flotte automobile.",
       details: "Application développée en React avec une architecture MVC.",
-      technologies: ["React", "MySQL"],
+      technologies: ["React", "JavaScript", "MySQL"],
       date: "2025",
     },
     {
@@ -253,7 +253,7 @@ export default function App() {
       image: portfolioScreen,
       description: "Mon portfolio personnel showcasing mes projets.",
       details: "Développé avec React et Tailwind CSS pour un design moderne.",
-      technologies: ["React", "Tailwind CSS", "Vite"],
+      technologies: ["React", "Tailwind CSS", "JavaScript", "Vite"],
       date: "2025",
     },
   ];
