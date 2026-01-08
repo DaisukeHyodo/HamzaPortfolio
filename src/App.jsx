@@ -209,10 +209,12 @@ export default function App() {
     {
       name: "ZOO",
       image: zooScreen,
-      description: "Une application de gestion de zoo avec interface intuitive.",
-      details: "Développé en HTML/CSS/JavaScript avec une base de données MySQL.",
+      description:
+        "Une application de gestion de zoo avec interface intuitive.",
+      details:
+        "Développé en HTML/CSS/JavaScript avec une base de données MySQL.",
       technologies: ["HTML", "CSS", "JavaScript", "MySQL"],
-      date: "2024"
+      date: "2024",
     },
     {
       name: "Gestion Vehicules",
@@ -220,7 +222,7 @@ export default function App() {
       description: "Système de gestion de flotte automobile.",
       details: "Application développée en PHP avec une architecture MVC.",
       technologies: ["PHP", "MySQL", "HTML/CSS"],
-      date: "2024"
+      date: "2024",
     },
     {
       name: "ERP",
@@ -228,7 +230,7 @@ export default function App() {
       description: "Logiciel de planification des ressources d'entreprise.",
       details: "ERP complet pour la gestion administrative d'une entreprise.",
       technologies: ["PHP", "MySQL", "JavaScript"],
-      date: "2023"
+      date: "2023",
     },
     {
       name: "CastleTown Web",
@@ -236,7 +238,7 @@ export default function App() {
       description: "Site web pour le projet CastleTown.",
       details: "Développé avec un design responsive et moderne.",
       technologies: ["HTML", "CSS", "JavaScript"],
-      date: "2023"
+      date: "2023",
     },
     {
       name: "Projet Formulaire",
@@ -244,7 +246,7 @@ export default function App() {
       description: "Formulaire interactif avec validation côté client.",
       details: "Validation en temps réel avec UX optimisée.",
       technologies: ["HTML", "CSS", "JavaScript"],
-      date: "2023"
+      date: "2023",
     },
     {
       name: "Ce portfolio",
@@ -252,7 +254,7 @@ export default function App() {
       description: "Mon portfolio personnel showcasing mes projets.",
       details: "Développé avec React et Tailwind CSS pour un design moderne.",
       technologies: ["React", "Tailwind CSS", "Vite"],
-      date: "2025"
+      date: "2025",
     },
   ];
   return (
@@ -442,7 +444,10 @@ export default function App() {
       </section>
 
       {/* MODAL PROJETS */}
-      <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
 
       {/* CONTACT / FOOTER */}
       <footer
