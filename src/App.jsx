@@ -17,12 +17,14 @@ function Veille({ feedUrl, maxItems = 6 }) {
     let cancelled = false;
     setLoading(true);
     setError(null);
-    fetch(feedUrl)
-      .then((r) => r.text())
-      .then((str) => {
+    const proxyUrl =
+      "https://api.allorigins.win/get?url=" + encodeURIComponent(feedUrl);
+    fetch(proxyUrl)
+      .then((r) => r.json())
+      .then((data) => {
         if (cancelled) return;
         const parser = new DOMParser();
-        const doc = parser.parseFromString(str, "application/xml");
+        const doc = parser.parseFromString(data.contents, "application/xml");
         const items = Array.from(doc.querySelectorAll("item, entry")).slice(
           0,
           maxItems
