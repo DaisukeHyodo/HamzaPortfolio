@@ -41,7 +41,7 @@ function Veille({ feedUrl, maxItems = 6 }) {
         const doc = parser.parseFromString(data.contents, "application/xml");
         const items = Array.from(doc.querySelectorAll("item, entry")).slice(
           0,
-          maxItems
+          maxItems,
         );
         const parsed = items.map((it) => {
           const titleRaw =
@@ -335,7 +335,7 @@ export default function App() {
               testant de nouveaux outils et frameworks.
             </p>
             <a
-              href="https://www.canva.com/design/DAGztOt6zh0/OjnwMPlu3L4SgBXud8g7fA/view?utm_content=DAGztOt6zh0&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h2eb4465e92"
+              href="https://www.canva.com/design/DAG-KnEmIvA/wTGom-t-3APxB4LYaSc5Ww/edit?utm_content=DAG-KnEmIvA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block text-purple-600 font-bold hover:underline"
