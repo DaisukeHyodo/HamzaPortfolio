@@ -295,7 +295,7 @@ export default function App() {
         {/* HERO */}
         <section
           id="accueil"
-          className="h-screen flex flex-col justify-center items-center text-center bg-gradient-to-br from-pink-200 via-purple-200 to-pink-100"
+          className="h-screen flex flex-col justify-center items-center text-center"
         >
           <h1 className="text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">
             Bonjour 👋, je m'appelle
