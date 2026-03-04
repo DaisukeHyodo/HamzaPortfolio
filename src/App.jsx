@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import LiquidGradient from "./components/ui/flow-gradient-hero-section";
 import erpScreen from "./assets/erp.png";
 import castletownScreen from "./assets/castle town.webp";
 import formulaireScreen from "./assets/formulaire.png";
@@ -260,10 +259,6 @@ export default function App() {
   ];
   return (
     <div className="font-sans text-purple-900 relative">
-      <div className="fixed inset-0 z-0">
-        <LiquidGradient />
-      </div>
-
       {/* Content Wrapper */}
       <div className="relative z-10">
         {/* HEADER */}
