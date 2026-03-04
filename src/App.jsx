@@ -258,7 +258,7 @@ export default function App() {
     },
   ];
   return (
-    <div className="font-sans text-purple-900 relative">
+    <div className="font-sans text-purple-900 relative bg-gradient-to-br from-purple-900 to-purple-700 min-h-screen">
       {/* Content Wrapper */}
       <div className="relative z-10">
         {/* HEADER */}
