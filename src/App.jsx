@@ -260,7 +260,6 @@ export default function App() {
   ];
   return (
     <div className="font-sans text-purple-900 relative">
-      {/* Flow Gradient Background */}
       <div className="fixed inset-0 z-0">
         <LiquidGradient />
       </div>
