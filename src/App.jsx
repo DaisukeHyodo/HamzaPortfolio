@@ -91,23 +91,25 @@ function Veille({ feedUrl, maxItems = 6 }) {
         ) : articles.length === 0 ? (
           <p className="text-sm text-gray-600">Aucun article trouvé.</p>
         ) : (
-          <ul className="space-y-3">
-            {articles.map((a, i) => (
-              <li key={i} className="text-left">
-                <a
-                  href={a.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-purple-700 hover:text-pink-500"
-                >
-                  {a.title}
-                </a>
-                {a.pubDate && (
-                  <div className="text-xs text-gray-500">{a.pubDate}</div>
-                )}
-              </li>
-            ))}
-          </ul>
+          <div className="max-h-96 overflow-y-auto border-l-4 border-purple-300 pl-4">
+            <ul className="space-y-3">
+              {articles.map((a, i) => (
+                <li key={i} className="text-left">
+                  <a
+                    href={a.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-purple-700 hover:text-pink-500"
+                  >
+                    {a.title}
+                  </a>
+                  {a.pubDate && (
+                    <div className="text-xs text-gray-500">{a.pubDate}</div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
         {feedUrl && (
           <div className="mt-4 text-sm">
