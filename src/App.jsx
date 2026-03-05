@@ -62,7 +62,13 @@ function Veille({ feedUrl, maxItems = 6 }) {
       })
       .catch((err) => {
         if (cancelled) return;
-        setError(err.message || "Erreur lors du chargement du flux");
+        if (feedUrl.includes("google.com/alerts")) {
+          setError(
+            "Ce flux Google Alerts n'est pas accessible en ligne. Accédez-le via le lien ci-dessous.",
+          );
+        } else {
+          setError(err.message || "Erreur lors du chargement du flux");
+        }
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
