@@ -264,6 +264,11 @@ export default function App() {
       technologies: ["React", "Tailwind CSS", "JavaScript", "Vite"],
       date: "2025",
     },
+    {
+      name: "Liens Epreuve E6",
+      description:
+        "Lien du Google Drive : https://drive.google.com/drive/folders/14NMfflagu3SzLCQ1hi7RSVryBKjAEQYV?usp=drive_link",
+    },
   ];
   return (
     <div className="font-sans bg-gradient-to-br from-pink-50 via-purple-100 to-white text-purple-900">
