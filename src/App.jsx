@@ -143,17 +143,19 @@ function ProjectModal({ project, onClose }) {
       >
         {/* Header avec bouton de fermeture */}
         <div className="relative">
+          {project.image && (
+            <img
+              src={project.image}
+              alt={project.name}
+              className="w-full h-64 object-cover"
+            />
+          )}
           <button
             onClick={onClose}
             className="absolute top-4 right-4 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-red-600 transition z-10"
           >
             ✕
           </button>
-          <img
-            src={project.image}
-            alt={project.name}
-            className="w-full h-64 object-cover"
-          />
         </div>
 
         {/* Contenu */}
@@ -178,21 +180,36 @@ function ProjectModal({ project, onClose }) {
               <p className="text-gray-700">{project.details}</p>
             </div>
 
-            <div>
-              <h3 className="text-lg font-semibold text-purple-600 mb-2">
-                Technologies utilisées
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech, i) => (
-                  <span
-                    key={i}
-                    className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium"
-                  >
-                    {tech}
-                  </span>
-                ))}
+            {project.technologies && (
+              <div>
+                <h3 className="text-lg font-semibold text-purple-600 mb-2">
+                  Technologies utilisées
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech, i) => (
+                    <span
+                      key={i}
+                      className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
+
+            {project.driveLink && (
+              <div>
+                <a
+                  href={project.driveLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition text-center"
+                >
+                  📂 Ouvrir Google Drive
+                </a>
+              </div>
+            )}
           </div>
 
           <button
@@ -266,8 +283,11 @@ export default function App() {
     },
     {
       name: "Liens Epreuve E6",
-      description:
-        "Lien du Google Drive : https://drive.google.com/drive/folders/14NMfflagu3SzLCQ1hi7RSVryBKjAEQYV?usp=drive_link",
+      description: "Accédez à tous les documents de l'épreuve E6.",
+      details: "Lien direct vers le dossier Google Drive contenant tous les fichiers et ressources de l'épreuve E6.",
+      driveLink: "https://drive.google.com/drive/folders/14NMfflagu3SzLCQ1hi7RSVryBKjAEQYV?usp=drive_link",
+      technologies: ["Google Drive"],
+      date: "2025",
     },
   ];
   return (
