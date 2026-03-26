@@ -284,8 +284,10 @@ export default function App() {
     {
       name: "Liens Epreuve E6",
       description: "Accédez à tous les documents de l'épreuve E6.",
-      details: "Lien direct vers le dossier Google Drive contenant tous les fichiers et ressources de l'épreuve E6.",
-      driveLink: "https://drive.google.com/drive/folders/14NMfflagu3SzLCQ1hi7RSVryBKjAEQYV?usp=drive_link",
+      details:
+        "Lien direct vers le dossier Google Drive contenant tous les fichiers et ressources de l'épreuve E6.",
+      driveLink:
+        "https://drive.google.com/drive/folders/14NMfflagu3SzLCQ1hi7RSVryBKjAEQYV?usp=drive_link",
       technologies: ["Google Drive"],
       date: "2025",
     },
