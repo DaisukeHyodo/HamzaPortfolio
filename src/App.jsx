@@ -7,10 +7,12 @@ import portfolioScreen from "./assets/portfolio_screen.png";
 import zooScreen from "./assets/zoo.png";
 import "./App.css";
 
-function Veille({ feedUrl, maxItems = 6 }) {
+function Veille({ feedUrl, maxItems = 6, refreshIntervalMinutes = 5 }) {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [lastRefresh, setLastRefresh] = useState(null);
+  const [isAutoRefreshing, setIsAutoRefreshing] = useState(false);
 
   // Helper function to decode HTML entities and strip HTML tags
   const decodeHTMLEntities = (text) => {
@@ -26,10 +28,11 @@ function Veille({ feedUrl, maxItems = 6 }) {
     return decodeHTMLEntities(div.textContent || div.innerText || "");
   };
 
-  useEffect(() => {
+  // Function to fetch articles
+  const fetchArticles = (showLoading = true) => {
     if (!feedUrl) return;
     let cancelled = false;
-    setLoading(true);
+    if (showLoading) setLoading(true);
     setError(null);
     const proxyUrl =
       "https://api.allorigins.win/get?url=" + encodeURIComponent(feedUrl);
@@ -59,6 +62,7 @@ function Veille({ feedUrl, maxItems = 6 }) {
           return { title, link, pubDate };
         });
         setArticles(parsed);
+        setLastRefresh(new Date());
       })
       .catch((err) => {
         if (cancelled) return;
@@ -74,7 +78,23 @@ function Veille({ feedUrl, maxItems = 6 }) {
         if (!cancelled) setLoading(false);
       });
     return () => (cancelled = true);
+  };
+
+  // Initial load
+  useEffect(() => {
+    fetchArticles(true);
   }, [feedUrl, maxItems]);
+
+  // Auto-refresh interval
+  useEffect(() => {
+    if (!feedUrl || !isAutoRefreshing) return;
+    
+    const intervalId = setInterval(() => {
+      fetchArticles(false); // Don't show loading during auto-refresh
+    }, refreshIntervalMinutes * 60 * 1000); // Convert minutes to milliseconds
+    
+    return () => clearInterval(intervalId);
+  }, [feedUrl, refreshIntervalMinutes, isAutoRefreshing]);
 
   return (
     <section id="veille" className="py-20 px-6 md:px-20 bg-purple-50">
@@ -82,6 +102,34 @@ function Veille({ feedUrl, maxItems = 6 }) {
         Veille technologique 🔎
       </h3>
       <div className="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow">
+        {/* Contrôles de rafraîchissement */}
+        <div className="mb-4 flex gap-3 flex-wrap items-center justify-between">
+          <div className="flex gap-2">
+            <button
+              onClick={() => fetchArticles(true)}
+              disabled={loading}
+              className="bg-purple-600 hover:bg-purple-700 disabled:bg-gray-400 text-white font-semibold px-4 py-2 rounded-lg transition"
+            >
+              🔄 Rafraîchir
+            </button>
+            <button
+              onClick={() => setIsAutoRefreshing(!isAutoRefreshing)}
+              className={`font-semibold px-4 py-2 rounded-lg transition ${
+                isAutoRefreshing
+                  ? "bg-green-600 hover:bg-green-700 text-white"
+                  : "bg-gray-300 hover:bg-gray-400 text-gray-800"
+              }`}
+            >
+              {isAutoRefreshing ? "⏸ Auto-refresh ON" : "▶ Auto-refresh OFF"}
+            </button>
+          </div>
+          {lastRefresh && (
+            <span className="text-xs text-gray-500">
+              Dernier refresh: {lastRefresh.toLocaleTimeString("fr-FR")}
+            </span>
+          )}
+        </div>
+
         {!feedUrl ? (
           <p className="text-sm text-gray-600">Aucun lien de flux configuré.</p>
         ) : loading ? (
