@@ -88,11 +88,14 @@ function Veille({ feedUrl, maxItems = 6, refreshIntervalMinutes = 5 }) {
   // Auto-refresh interval
   useEffect(() => {
     if (!feedUrl || !isAutoRefreshing) return;
-    
-    const intervalId = setInterval(() => {
-      fetchArticles(false); // Don't show loading during auto-refresh
-    }, refreshIntervalMinutes * 60 * 1000); // Convert minutes to milliseconds
-    
+
+    const intervalId = setInterval(
+      () => {
+        fetchArticles(false); // Don't show loading during auto-refresh
+      },
+      refreshIntervalMinutes * 60 * 1000,
+    ); // Convert minutes to milliseconds
+
     return () => clearInterval(intervalId);
   }, [feedUrl, refreshIntervalMinutes, isAutoRefreshing]);
 
