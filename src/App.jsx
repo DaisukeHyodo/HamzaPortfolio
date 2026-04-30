@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import $ from "jquery";
 import erpScreen from "./assets/erp.png";
 import castletownScreen from "./assets/castle town.webp";
 import formulaireScreen from "./assets/formulaire.png";
@@ -11,6 +12,9 @@ function Veille({ feedUrl, maxItems = 6 }) {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [lastUpdate, setLastUpdate] = useState(null);
+  const [nextUpdate, setNextUpdate] = useState(null);
+  const REFRESH_INTERVAL = 30000; // 30 secondes
 
   // Helper function to decode HTML entities and strip HTML tags
   const decodeHTMLEntities = (text) => {
@@ -26,54 +30,86 @@ function Veille({ feedUrl, maxItems = 6 }) {
     return decodeHTMLEntities(div.textContent || div.innerText || "");
   };
 
-  useEffect(() => {
+  // Function to load articles using jQuery Ajax
+  const loadArticlesWithAjax = () => {
     if (!feedUrl) return;
-    let cancelled = false;
-    setLoading(true);
-    setError(null);
+
     const proxyUrl =
       "https://api.allorigins.win/get?url=" + encodeURIComponent(feedUrl);
-    fetch(proxyUrl)
-      .then((r) => r.json())
-      .then((data) => {
-        if (cancelled) return;
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(data.contents, "application/xml");
-        const items = Array.from(doc.querySelectorAll("item, entry")).slice(
-          0,
-          maxItems,
-        );
-        const parsed = items.map((it) => {
-          const titleRaw =
-            it.querySelector("title")?.textContent || "(sans titre)";
-          const title = cleanHTML(titleRaw);
-          const link =
-            it.querySelector("link")?.textContent ||
-            it.querySelector("link")?.getAttribute("href") ||
-            "#";
-          const pubDateRaw =
-            it.querySelector("pubDate")?.textContent ||
-            it.querySelector("updated")?.textContent ||
-            "";
-          const pubDate = cleanHTML(pubDateRaw);
-          return { title, link, pubDate };
-        });
-        setArticles(parsed);
-      })
-      .catch((err) => {
-        if (cancelled) return;
+
+    $.ajax({
+      url: proxyUrl,
+      type: "GET",
+      dataType: "json",
+      timeout: 10000,
+      success: function (data) {
+        try {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(data.contents, "application/xml");
+          const items = Array.from(doc.querySelectorAll("item, entry")).slice(
+            0,
+            maxItems,
+          );
+          const parsed = items.map((it) => {
+            const titleRaw =
+              it.querySelector("title")?.textContent || "(sans titre)";
+            const title = cleanHTML(titleRaw);
+            const link =
+              it.querySelector("link")?.textContent ||
+              it.querySelector("link")?.getAttribute("href") ||
+              "#";
+            const pubDateRaw =
+              it.querySelector("pubDate")?.textContent ||
+              it.querySelector("updated")?.textContent ||
+              "";
+            const pubDate = cleanHTML(pubDateRaw);
+            return { title, link, pubDate };
+          });
+          setArticles(parsed);
+          setError(null);
+          const now = new Date();
+          setLastUpdate(now.toLocaleTimeString("fr-FR"));
+          setNextUpdate(
+            new Date(now.getTime() + REFRESH_INTERVAL).toLocaleTimeString(
+              "fr-FR",
+            ),
+          );
+        } catch (err) {
+          setError("Erreur lors du parsing du flux");
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
         if (feedUrl.includes("google.com/alerts")) {
           setError(
             "Ce flux Google Alerts n'est pas accessible en ligne. Accédez-le via le lien ci-dessous.",
           );
         } else {
-          setError(err.message || "Erreur lors du chargement du flux");
+          setError(
+            "Erreur : " +
+              (textStatus === "timeout"
+                ? "Délai d'attente dépassé"
+                : errorThrown || "Impossible de charger le flux"),
+          );
         }
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-    return () => (cancelled = true);
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (!feedUrl) return;
+
+    // Load articles immediately on mount
+    setLoading(true);
+    loadArticlesWithAjax();
+    setLoading(false);
+
+    // Set up auto-refresh interval
+    const intervalId = setInterval(() => {
+      loadArticlesWithAjax();
+    }, REFRESH_INTERVAL);
+
+    // Cleanup interval on unmount
+    return () => clearInterval(intervalId);
   }, [feedUrl, maxItems]);
 
   return (
@@ -121,6 +157,15 @@ function Veille({ feedUrl, maxItems = 6 }) {
             >
               Ouvrir le flux Google Alerts
             </a>
+            {lastUpdate && (
+              <div className="mt-2 text-xs text-gray-500">
+                <p>✓ Dernière mise à jour : {lastUpdate}</p>
+                <p>⏱ Prochaine mise à jour : {nextUpdate}</p>
+                <p className="mt-1 text-green-600 font-semibold">
+                  🔄 Actualisation automatique activée (30 secondes)
+                </p>
+              </div>
+            )}
           </div>
         )}
       </div>
