@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import erpScreen from "./assets/erp.png";
-import castletownScreen from "./assets/castle town.webp";
+import castletownScreen from "./assets/castleTown.webp";
+import borneScreen from "./assets/borneScreen.png";
 import formulaireScreen from "./assets/formulaire.png";
 import gestionVehiculeScreen from "./assets/gestion_vehicule.png";
+import driveScreen from "./assets/driveScreen.png";
 import portfolioScreen from "./assets/portfolio_screen.png";
 import zooScreen from "./assets/zoo.png";
 import "./App.css";
@@ -306,7 +308,16 @@ export default function App() {
       date: "2025",
     },
     {
+      name: "Borne de Commmande",
+      image: borneScreen,
+      description: "Projet de borne pour un restaurant .",
+      details: "Projet réalisé dans le cadre de mon formation.",
+      technologies: ["C#", "MySQL"],
+      date: "2026",
+    },
+    {
       name: "Liens Epreuve E6",
+      image: driveScreen,
       description: "Accédez à tous les documents de l'épreuve E6.",
       details:
         "Lien direct vers le dossier Google Drive contenant tous les fichiers et ressources de l'épreuve E6.",
