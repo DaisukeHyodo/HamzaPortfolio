@@ -155,7 +155,7 @@ function Veille({ feedUrl, maxItems = 6 }) {
 }
 
 // Modal Component
-function ProjectModal({ project, onClose }) {
+function ProjectModal({ project, onClose, onNext, onPrev, totalProjects }) {
   if (!project) return null;
 
   return (
@@ -163,17 +163,53 @@ function ProjectModal({ project, onClose }) {
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
       onClick={onClose}
     >
+      {/* Navigation Arrows - Positioned outside modal */}
+      {totalProjects > 1 && (
+        <>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onPrev();
+            }}
+            className="fixed left-8 top-1/2 transform -translate-y-1/2 bg-purple-600 hover:bg-purple-700 text-white w-14 h-14 rounded-full flex items-center justify-center transition z-50 shadow-lg"
+          >
+            <svg
+              className="w-6 h-6 fill-current"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+            </svg>
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onNext();
+            }}
+            className="fixed right-8 top-1/2 transform -translate-y-1/2 bg-purple-600 hover:bg-purple-700 text-white w-14 h-14 rounded-full flex items-center justify-center transition z-50 shadow-lg"
+          >
+            <svg
+              className="w-6 h-6 fill-current"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M10 6L8.59 7.41 12.17 11 8.59 14.59 10 16l6-6z" />
+            </svg>
+          </button>
+        </>
+      )}
+
       <div
-        className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header avec bouton de fermeture */}
-        <div className="relative">
+        <div className="relative flex-shrink-0">
           {project.image && (
             <img
               src={project.image}
               alt={project.name}
-              className="w-full h-64 object-cover"
+              className="w-full h-80 object-contain bg-gray-100"
             />
           )}
           <button
@@ -185,7 +221,7 @@ function ProjectModal({ project, onClose }) {
         </div>
 
         {/* Contenu */}
-        <div className="p-6">
+        <div className="p-6 flex-1 overflow-y-auto">
           <h2 className="text-3xl font-bold text-purple-700 mb-2">
             {project.name}
           </h2>
@@ -251,7 +287,7 @@ function ProjectModal({ project, onClose }) {
 }
 
 export default function App() {
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProjectIndex, setSelectedProjectIndex] = useState(null);
 
   // Remplacez cette URL par votre lien Google Alerts (RSS/Atom)
   const GOOGLE_ALERTS_FEED =
@@ -497,7 +533,7 @@ export default function App() {
           {projects.map((proj, i) => (
             <div
               key={i}
-              onClick={() => setSelectedProject(proj)}
+              onClick={() => setSelectedProjectIndex(i)}
               className="bg-white p-6 rounded-xl shadow hover:shadow-xl transition flex flex-col items-center justify-center text-center cursor-pointer"
             >
               <div className="w-full overflow-hidden rounded-md mb-4">
@@ -515,8 +551,19 @@ export default function App() {
 
       {/* MODAL PROJETS */}
       <ProjectModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
+        project={
+          selectedProjectIndex !== null ? projects[selectedProjectIndex] : null
+        }
+        onClose={() => setSelectedProjectIndex(null)}
+        onNext={() =>
+          setSelectedProjectIndex((selectedProjectIndex + 1) % projects.length)
+        }
+        onPrev={() =>
+          setSelectedProjectIndex(
+            (selectedProjectIndex - 1 + projects.length) % projects.length,
+          )
+        }
+        totalProjects={projects.length}
       />
 
       {/* CONTACT / FOOTER */}
