@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import erpScreen from "./assets/erp.png";
+import erpScreen from "./assets/erpScreen.png";
 import castletownScreen from "./assets/castleTown.webp";
 import borneScreen from "./assets/borneScreen.png";
 import formulaireScreen from "./assets/formulaire.png";
