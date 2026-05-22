@@ -5,5 +5,5 @@ import tailwindcss from "@tailwindcss/vite";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: "/HamzaPortfolio/", // Indispensable pour GitHub Pages
+  base: "/HamzaPortfolio/", // Indispensable pour GitHub Pages CHANGER ENTRE HamzaPortfolio (github/normal) et portfolio (filezilla) selon le deploiment
 });
