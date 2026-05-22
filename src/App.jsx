@@ -289,7 +289,7 @@ export default function App() {
       details:
         "Projet personnel visant a recréer un cercle d'amis avec chaque user son compte et ses customisations.",
       technologies: ["C#", "PHP", "JavaScript", "MySQL"],
-      date: "2026",
+      date: "à venir",
     },
     {
       name: "Projet Formulaire",
@@ -324,7 +324,7 @@ export default function App() {
       driveLink:
         "https://drive.google.com/drive/folders/14NMfflagu3SzLCQ1hi7RSVryBKjAEQYV?usp=drive_link",
       technologies: ["Google Drive"],
-      date: "2025",
+      date: "2026",
     },
   ];
   return (
