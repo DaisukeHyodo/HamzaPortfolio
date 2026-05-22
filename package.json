@@ -17,6 +17,7 @@
     "jquery": "^4.0.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-glass-ui": "^1.2.2",
     "tailwindcss": "^4.1.13"
   },
   "devDependencies": {
